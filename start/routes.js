@@ -15,8 +15,13 @@
 
 const Route = use('Route')
 
+Route.route('/', () => {
+  return 'Peekaboo'
+}, ['GET', 'POST'])
+
 Route.group(() => {
   Route.post('login', 'AuthController.login')
+  Route.post('signup', 'AuthController.signup')
 }).prefix('auth')
 
 Route.group(() => {
@@ -30,3 +35,7 @@ Route.group(() => {
 
   Route.post('create', 'LoadController.createProject').validator('createProject')
 }).prefix('projects').namespace('Project').middleware(['checkAuth'])
+
+Route.route('*', () => {
+  return 'Incorrect Route'
+}, ['GET', 'POST'])
