@@ -25,6 +25,10 @@ Route.group(() => {
 }).prefix('auth')
 
 Route.group(() => {
+  Route.get('/', () => 'Project')
+}).prefix('projects').namespace('Project')
+
+Route.group(() => {
   Route.get('fetchAll', 'LoadController.fetchAll')
 
   Route.post('create', 'LoadController.createLead').validator('createLead')
