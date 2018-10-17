@@ -4,13 +4,10 @@ const Schema = use('Schema')
 
 class UserSchema extends Schema {
   up () {
-    this.create('users', (table) => {
-      table.increments()
-      table.string('username', 80).notNullable().unique()
-      table.string('email', 254).notNullable().unique()
-      table.string('password', 60).notNullable()
+    this.table('users', (table) => {
+      table.enu('type', ['project-manager', 'client', 'talent'])
+      table.integer('proId')
       table.boolean('isDeleted').defaultTo(false)
-      table.timestamps()
     })
   }
 

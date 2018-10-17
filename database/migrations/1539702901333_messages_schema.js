@@ -3,22 +3,22 @@
 /** @type {import('@adonisjs/lucid/src/Schema')} */
 const Schema = use('Schema')
 
-class TasksSchema extends Schema {
+class MessagesSchema extends Schema {
   up () {
-    this.create('tasksHorus', (table) => {
+    this.create('messagesHorus', (table) => {
       table.increments()
-      table.integer('milestoneId').notNullable()
       table.integer('projectId').notNullable()
-      table.string('title').notNullable()
-      table.boolean('completed').defaultTo(false)
+      table.integer('threadId').notNullable()
+      table.integer('senderId').notNullable()
+      table.string('message').notNullable()
       table.boolean('isDeleted').defaultTo(false)
       table.timestamps()
     })
   }
 
   down () {
-    this.drop('tasks')
+    this.drop('messages')
   }
 }
 
-module.exports = TasksSchema
+module.exports = MessagesSchema

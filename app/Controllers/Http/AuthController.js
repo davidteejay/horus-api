@@ -1,6 +1,5 @@
 'use strict'
 const User = use('App/Models/User')
-const { validate } = use('Validator')
 
 class AuthController {
     async login({ request, auth, response }) {
@@ -10,7 +9,7 @@ class AuthController {
             const attemptLogin = await auth.attempt(email, password);
 
             if (attemptLogin) {
-                const user = await User.query().where('email', email).first()
+                const user = await User.query().where({ email: email, isDeleted: false }).first()
 
                 //add the user token cred to the user object
                 user.type = attemptLogin.type
@@ -30,44 +29,6 @@ class AuthController {
                     error: true,
                 })
             }
-        } catch (e) {
-            return response.status(500).json({
-                data: [],
-                message: e.message,
-                error: true,
-            })
-        }
-    }
-
-    async signup({ request, response }) {
-        try {
-            const validation = await validate(request.all(), {
-                username: 'required',
-                email: 'required|email',
-                password: 'required'
-            })
-
-            if (validation.fails()) {
-                return response.status(500).json({
-                    data: [],
-                    message: validation.messages(),
-                    error: true,
-                })
-            }
-
-            const user = new User();
-            const { username, email, password } = request.all();
-            user.username = username;
-            user.email = email,
-                user.password = password;
-
-            await user.save()
-
-            return response.status(200).json({
-                data: user,
-                message: 'Signup successfully',
-                error: false,
-            })
         } catch (e) {
             return response.status(500).json({
                 data: [],

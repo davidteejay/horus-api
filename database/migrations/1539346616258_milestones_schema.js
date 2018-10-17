@@ -5,7 +5,7 @@ const Schema = use('Schema')
 
 class MilestonesSchema extends Schema {
   up () {
-    this.create('milestones', (table) => {
+    this.create('milestonesHorus', (table) => {
       table.increments()
       table.string('title').notNullable()
       table.integer('projectId').notNullable(),

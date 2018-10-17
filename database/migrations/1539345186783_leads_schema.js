@@ -5,7 +5,7 @@ const Schema = use('Schema')
 
 class LeadsSchema extends Schema {
   up () {
-    this.create('leads', (table) => {
+    this.create('leadsHorus', (table) => {
       table.increments()
       table.string('email', 80).notNullable().unique(),
       table.string('fullname', 100).notNullable(),

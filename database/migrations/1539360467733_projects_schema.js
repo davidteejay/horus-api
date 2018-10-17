@@ -5,13 +5,14 @@ const Schema = use('Schema')
 
 class ProjectsSchema extends Schema {
   up () {
-    this.create('projects', (table) => {
+    this.create('projectsHorus', (table) => {
       table.increments()
       table.integer('clientId').notNullable()
       table.integer('leadId').notNullable()
       table.string('title').notNullable()
       table.string('description', 500).notNullable()
       table.double('budget').notNullable()
+      table.boolean('active').defaultTo(true)
       table.boolean('isDeleted').defaultTo(false)
       table.timestamps()
     })
