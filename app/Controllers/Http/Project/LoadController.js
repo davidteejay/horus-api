@@ -29,7 +29,9 @@ class LoadController {
 	async getOne({ request, response }){
 		try {
 			//get the project
+			
 			let project = await Project.query().where({ ...request.all(), isDeleted: false }).first()
+			
 			const { id } = project
 			//get the talents for the project
 			const talents = await Response.query().where({ projectId: id, isDeleted: false, approved: true, status: 'involved' }).get()

@@ -21,6 +21,7 @@ Route.route('/', () => {
 
 Route.group(() => {
   Route.post('login', 'AuthController.login')
+  Route.post('register', 'AuthController.register')
 }).prefix('auth')
 
 Route.group(() => {
@@ -56,6 +57,30 @@ Route.group(() => {
 
   Route.post('create', 'LoadController.createLead').validator('createLead')
 }).prefix('leads').namespace('Lead').middleware(['checkAuth'])
+
+
+
+
+//Assessment Routes
+
+Route.group(()=>{
+  Route.get('tests', 'LoadController.getAllTest')
+  Route.post('tests', 'LoadController.createTest')
+  Route.put('update_test/:id', 'LoadController.updateTest')
+  Route.get('test/:id', 'LoadController.getTest')
+  Route.put('delete_test/:id', 'LoadController.deleteTest')
+
+  Route.get('questions', 'LoadController.getAllQuestion')
+  Route.post('questions', 'LoadController.createQuestion')
+  Route.put('update_question/:id', 'LoadController.updateQuestion')
+  Route.get('question/:id', 'LoadController.getQuestion')
+  Route.put('delete_question/:id', 'LoadController.deleteQuestion')
+
+  Route.post('addResult', 'LoadController.addResult')
+  Route.get('getResult/:id', 'LoadController.getResult')
+
+}).prefix('assessment').namespace('Assessment').middleware(['checkAuth'])
+
 
 Route.route('*', () => {
   return 'Incorrect Route'
