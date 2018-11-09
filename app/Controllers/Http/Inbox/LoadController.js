@@ -2,6 +2,7 @@
 
 const Thread = use('App/Models/Thread')
 const Message = use('App/Models/Message')
+const User = use('App/Models/User')
 
 class LoadController {
 	async getThreads({ request, response }){
@@ -13,7 +14,14 @@ class LoadController {
 				for (let thread of threads){
 					const messages = await Message.query().where({ threadId: thread.id, isDeleted: false }).get()
 					thread.messages = messages;
+								
+					const sender = await User.query().where({ id: thread.senderId, isDeleted: false }).get()
+					thread.sender = sender;
+				
+					const receiver = await User.query().where({ id: thread.receiverId, isDeleted: false }).get()
+					thread.receiver = receiver;
 				}
+
 
 				return response.status(200).json({
 					data: threads,
@@ -38,17 +46,45 @@ class LoadController {
 
 	async sendMessage({ request, response }){
 		try {
-			const params =  request.all()
+			const params =  await request.all()
+			let saved = false; 
+			let saved_thread = false;
+			const newMessage = new Message();
 
 			if(!params.threadId){
+			const newThread = new Thread();
+			newThread.projectId = params.projectId
+			newThread.senderId = params.senderId
+			newThread.receiverId = params.receiverId
 
-			}
+			await newThread.save()
+			//const createThread = await Thread.create(request.only(['projectId', 'senderId', 'receiverId']))
+
+			// if (!createThread) {
+			// 	return response.status(403).json({
+			// 		data:[],
+			// 		message: 'Could not create thread',
+			// 		error:true
+			// 	})
+			// };
+
 			
-			const sendMessage = Message.create(params)
+			newMessage.projectId = params.projectId
+			newMessage.senderId = params.senderId
+			newMessage.threadId = newThread.id
+			newMessage.message = params.message
 
-			if (sendMessage){
+			await newMessage.save()
+			saved = true;
+			}else{
+	
+			await Message.create(request.except('receiverId'))
+			saved = true
+			}
+
+			if (saved){
 				return response.status(200).json({
-					data: sendMessage,
+					data: newMessage,
 					message: 'Message sent',
 					error: false
 				})
@@ -66,7 +102,10 @@ class LoadController {
 				error: true
 			})
 		}
+
+
+		}
 	}
-}
+
 
 module.exports = LoadController

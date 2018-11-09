@@ -49,7 +49,7 @@ Route.group(() => {
 Route.group(() => {
   Route.get('getThreads', 'LoadController.getThreads')
 
-  Route.get('sendMessage', 'LoadController.sendMessage')
+  Route.post('sendMessage', 'LoadController.sendMessage')
 }).prefix('inbox').namespace('Inbox').middleware(['checkAuth'])
 
 Route.group(() => {
