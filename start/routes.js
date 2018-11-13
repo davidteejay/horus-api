@@ -66,7 +66,7 @@ Route.group(() => {
 Route.group(()=>{
   Route.get('tests', 'LoadController.getAllTest')
   Route.post('tests', 'LoadController.createTest')
-  Route.put('update_test/:id', 'LoadController.updateTest')
+  Route.post('update_test', 'LoadController.updateTest')
   Route.get('test/:id', 'LoadController.getTest')
   Route.put('delete_test/:id', 'LoadController.deleteTest')
 

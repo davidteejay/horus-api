@@ -93,15 +93,16 @@ class LoadController {
 		}
 	}
 
-	async updateTest({request, params, response}){
+	async updateTest({request,  response}){
 
 		try{
 
-			const { id } = params
+			const { id } = request
 			
 			const parame = await request.except('id')
 
 			const update = await Test.query().where({id}).update({...parame})
+			//const update = await Test.create({...parame})
 
 			if (update) {
 				return response.status(200).json({
