@@ -9,20 +9,20 @@ class LoadController {
 			const addResponse = await Response.create(params)
 
 			if (addResponse) {
-				return response.status(200).json({
+				return response.json({
 					data: addResponse,
 					message: 'Response Added',
 					error: false
 				})
 			} else {
-				return response.status(403).json({
+				return response.json({
 					data: [],
 					message: 'Response couldn\'t be added',
 					error: true
 				})
 			}
 		} catch (e) {
-			return response.status(500).json({
+			return response.json({
 				data: [],
 				message: e.message,
 				error: true
@@ -35,20 +35,20 @@ class LoadController {
 			const responses = await Response.query().where({ isDeleted: false }).get()
 
 			if (responses){
-				return response.status(200).json({
+				return response.json({
 					data: responses,
 					message: 'Responses successfully retrieved',
 					error: false
 				})
 			} else {
-				return response.status(403).json({
+				return response.json({
 					data: [],
 					message: 'Could not fetch responses',
 					error: true
 				})
 			}
 		} catch (e) {
-			return response.status(500).json({
+			return response.json({
 				data: [],
 				message: e.message,
 				error: true
@@ -63,20 +63,20 @@ class LoadController {
 			const updateTask = await Response.query().where({ id }).update({ ...params })
 
 			if (updateTask) {
-				return response.status(200).json({
+				return response.json({
 					data: [],
 					message: 'Response Updated',
 					error: false
 				})
 			} else {
-				return response.status(403).json({
+				return response.json({
 					data: [],
 					message: 'Response couldn\'t ne updated',
 					error: true
 				})
 			}
 		} catch (e) {
-			return response.status(500).json({
+			return response.json({
 				data: [],
 				message: e.message,
 				error: false

@@ -17,20 +17,20 @@ class AuthController {
                 user.refreshToken = attemptLogin.refreshToken
                 //ends...
 
-                return response.status(200).json({
+                return response.json({
                     data: user,
                     message: 'Login successfully',
                     error: false,
                 })
             } else {
-                return response.status(422).json({
+                return response.json({
                     data: [],
                     message: 'Invalid email or password',
                     error: true,
                 })
             }
         } catch (e) {
-            return response.status(500).json({
+            return response.json({
                 data: [],
                 message: e.message,
                 error: true,
@@ -62,7 +62,7 @@ class AuthController {
 
            })
         } catch(e) {
-            return response.status(500).json({
+            return response.status(422).json({
                 data: [],
                 message: e.message,
                 error: true,

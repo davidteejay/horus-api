@@ -7,13 +7,13 @@ class LoadController {
         try {
             const leads = await Lead.query().where('active', true).orderBy('id', 'desc').get()
 
-            return response.status(200).json({
+            return response.json({
                 data: leads,
                 message: 'Leads successfully retrieved',
                 error: false,
             })
         } catch(e) {
-            return response.status(500).json({
+            return response.json({
                 data: [],
                 message: e.message,
                 error: true
@@ -30,20 +30,20 @@ class LoadController {
             const createLead = await Lead.create(params)
 
             if(createLead) {
-                return response.status(200).json({
+                return response.json({
                     data: params,
                     message: 'Leads successfully created',
                     error: false,
                 })
             } else {
-                return response.status(403).json({
+                return response.json({
                     data: params,
                     message: 'Unable to create lead',
                     error: true,
                 })
             }
         } catch (e) {
-            return response.status(500).json({
+            return response.json({
                 data: [],
                 message: e.message,
                 error: true

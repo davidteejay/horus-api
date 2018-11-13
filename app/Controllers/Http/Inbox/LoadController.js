@@ -23,20 +23,20 @@ class LoadController {
 				}
 
 
-				return response.status(200).json({
+				return response.json({
 					data: threads,
 					message: 'Threads received successfully',
 					error: false
 				})
 			} else {
-				return response.status(403).json({
+				return response.json({
 					data: [],
 					message: 'Threads could not be retrieved',
 					error: true
 				})
 			}
 		} catch (e){
-			return response.status(500).json({
+			return response.json({
 				data: [],
 				message: e.message,
 				error: true
@@ -83,20 +83,20 @@ class LoadController {
 			}
 
 			if (saved){
-				return response.status(200).json({
+				return response.json({
 					data: newMessage,
 					message: 'Message sent',
 					error: false
 				})
 			} else {
-				return response.status(403).json({
+				return response.json({
 					data: [],
 					message: 'Message could\'nt be sent',
 					error: true
 				})
 			}
 		} catch (e){
-			return response.status(500).json({
+			return response.json({
 				data: [],
 				message: e.message,
 				error: true

@@ -1,4 +1,4 @@
-posr'use strict'
+'use strict'
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +17,7 @@ const Route = use('Route')
 
 Route.route('/', () => {
   return 'Peekaboo'
-}, ['GET', 'POST'])
+}, ['GET', 'POST', 'PUT'])
 
 Route.group(() => {
   Route.post('login', 'AuthController.login')

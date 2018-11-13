@@ -9,13 +9,13 @@ class LoadController {
 				.table('milestones')
 				.innerJoin('tasks', 'tasks.milestoneId', 'milestones.id')
 			
-			return response.status(200).json({
+			return response.json({
 				data: milestones,
 				message: 'Milestones retrieved successfully',
 				error: false
 			})
 		} catch (e){
-			return response.status(500).json({
+			return response.json({
 				data: [],
 				message: e.message,
 				error: true
@@ -27,7 +27,7 @@ class LoadController {
 		try {
 			const params = await request.except('tasks')
 		} catch (e) {
-			return response.status(500).json({
+			return response.json({
 				data: [],
 				message: e.message,
 				error: true

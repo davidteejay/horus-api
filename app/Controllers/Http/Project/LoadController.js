@@ -12,13 +12,13 @@ class LoadController {
 			const projects = await Project.query().where({active: true, isDeleted: false}).orderBy('id', 'desc').get()
 
 			//send success message
-			return response.status(200).json({
+			return response.json({
 				data: projects,
 				message: 'Projects successfully retrieved',
 				error: false,
 			})
 		} catch (e) {
-			return response.status(500).json({
+			return response.json({
 				data: [],
 				message: e.message,
 				error: true
@@ -48,13 +48,13 @@ class LoadController {
 			project.milestones = milestones;
 			project.talents = talents			
 
-			return response.status(200).json({
+			return response.json({
 				data: project,
 				message: 'Project successfully retrieved',
 				error: false
 			})
 		} catch (e) {
-			return response.status(500).json({
+			return response.json({
 				data: [],
 				message: e.message,
 				error: true
@@ -72,20 +72,20 @@ class LoadController {
 
 			if (createLead) {
 				// send success message if saved successfully
-				return response.status(200).json({
+				return response.json({
 					data: createLead,
 					message: 'Project successfully created',
 					error: false,
 				})
 			} else {
-				return response.status(403).json({
+				return response.json({
 					data: params,
 					message: 'Unable to create project',
 					error: true,
 				})
 			}
 		} catch(e){
-			return response.status(500).json({
+			return response.json({
 				data: [],
 				message: e.message,
 				error: true
@@ -116,27 +116,27 @@ class LoadController {
 
 				if (saved){
 					addMilestone.tasks = tasks
-					return response.status(200).json({
+					return response.json({
 						data: addMilestone,
 						message: 'Milestone created successfully',
 						error: false
 					})
 				} else {
-					return response.status(403).json({
+					return response.json({
 						data: [],
 						message: 'Unable to create milestone',
 						error: true,
 					})
 				}
 			} else {
-				return response.status(403).json({
+				return response.json({
 					data: [],
 					message: 'Unable to create milestone',
 					error: true,
 				})
 			}
 		} catch (e){
-			return response.status(500).json({
+			return response.json({
 				data: [],
 				message: e.message,
 				error: true
@@ -152,13 +152,13 @@ class LoadController {
 			let tasks = await Task.query().where({ projectId: milestones.projectId, isDeleted: false, milestoneId: milestones.id }).get()
 			milestones.tasks = tasks
 
-			return response.status(200).json({
+			return response.json({
 				data: milestones,
 				message: 'Milestone successfully retrieved',
 				error: false
 			})
 		} catch (e) {
-			return response.status(500).json({
+			return response.json({
 				data: [],
 				message: e.message,
 				error: true
@@ -177,13 +177,13 @@ class LoadController {
 				milestones[i].tasks = tasks
 			}
 
-			return response.status(200).json({
+			return response.json({
 				data: milestones,
 				message: 'Milestones successfully retrieved',
 				error: false
 			})
 		} catch (e) {
-			return response.status(500).json({
+			return response.json({
 				data: [],
 				message: e.message,
 				error: true
@@ -199,20 +199,20 @@ class LoadController {
 				const { id } = request.all()
 				const deleteTask = await Task.query().where({ milestoneId: id }).update({ isDeleted: true })
 
-				return response.status(200).json({
+				return response.json({
 					data: [],
 					message: 'Milestone deleted successfully',
 					eror: false
 				})
 			} else {
-				return response.status(403).json({
+				return response.json({
 					data: [],
 					message: 'Milestone couldn\'t be deleted',
 					error: true
 				})
 			}
 		} catch (e) {
-			return response.status(500).json({
+			return response.json({
 				data: [],
 				message: e.message,
 				error: true
@@ -227,20 +227,20 @@ class LoadController {
 			const updateMilestone = await Milestone.query().where({ id }).update({ ...params })
 
 			if (updateMilestone){
-				return response.status(200).json({
+				return response.json({
 					data: updateMilestone,
 					message: 'Milestone Updated',
 					error: false
 				})
 			} else {
-				return response.status(403).json({
+				return response.json({
 					data: [],
 					message: 'Milestone couldn\'t ne updated',
 					error: true
 				})
 			}
 		} catch (e) {
-			return response.status(500).json({
+			return response.json({
 				data: [],
 				message: e.message,
 				error: false
@@ -255,20 +255,20 @@ class LoadController {
 			const updateTask = await Task.query().where({ id }).update({ ...params })
 
 			if (updateTask){
-				return response.status(200).json({
+				return response.json({
 					data: updateTask,
 					message: 'Task Updated',
 					error: false
 				})
 			} else {
-				return response.status(403).json({
+				return response.json({
 					data: [],
 					message: 'Task couldn\'t be updated',
 					error: true
 				})
 			}
 		} catch (e){
-			return response.status(500).json({
+			return response.json({
 				data: [],
 				message: e.message,
 				error: false
@@ -281,20 +281,20 @@ class LoadController {
 			const deleteTask = await Task.query().where({ ...request.all() }).update({ isDeleted: true })
 
 			if (deleteTask) {
-				return response.status(200).json({
+				return response.json({
 					data: [],
 					message: 'Task Deleted',
 					error: false
 				})
 			} else {
-				return response.status(403).json({
+				return response.json({
 					data: [],
 					message: 'Task couldn\'t be deleted',
 					error: true
 				})
 			}
 		} catch (e) {
-			return response.status(500).json({
+			return response.json({
 				data: [],
 				message: e.message,
 				error: false
