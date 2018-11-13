@@ -37,6 +37,10 @@ class AuthController {
             })
         }
     }
+
+    async signup({ request, response }){
+        
+    }
 }
 
 module.exports = AuthController
