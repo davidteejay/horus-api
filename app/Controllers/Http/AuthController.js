@@ -38,6 +38,7 @@ class AuthController {
         }
     }
 
+
     async register({request, response}){
 
         try{

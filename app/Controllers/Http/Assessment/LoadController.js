@@ -372,8 +372,6 @@ class LoadController {
 			})
 		}
 	}
-
-
 }
 
 module.exports = LoadController
