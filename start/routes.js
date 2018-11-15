@@ -54,6 +54,8 @@ Route.group(() => {
 
 Route.group(() => {
   Route.get('fetchAll', 'LoadController.fetchAll')
+  Route.get('fetchOne', 'LoadController.fetchOne')
+  Route.get('deleteLead', 'LoadController.deleteLead')
 
   Route.post('create', 'LoadController.createLead').validator('createLead')
 }).prefix('leads').namespace('Lead').middleware(['checkAuth'])
