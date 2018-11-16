@@ -15,10 +15,10 @@ class LoadController {
 					const messages = await Message.query().where({ threadId: thread.id, isDeleted: false }).get()
 					thread.messages = messages;
 								
-					const sender = await User.query().where({ id: thread.senderId, isDeleted: false }).get()
+					const sender = await User.query().where({ id: thread.senderId, isDeleted: false }).first()
 					thread.sender = sender;
 				
-					const receiver = await User.query().where({ id: thread.receiverId, isDeleted: false }).get()
+					const receiver = await User.query().where({ id: thread.receiverId, isDeleted: false }).first()
 					thread.receiver = receiver;
 				}
 

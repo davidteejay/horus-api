@@ -60,6 +60,12 @@ Route.group(() => {
   Route.post('create', 'LoadController.createLead').validator('createLead')
 }).prefix('leads').namespace('Lead').middleware(['checkAuth'])
 
+Route.group(() => {
+  Route.get('fetchAll', 'LoadController.fetchAll')
+  Route.get('fetchOne', 'LoadController.fetchOne')
+
+  Route.post('create', 'LoadController.create')
+}).prefix('transactions').namespace('Transactions').middleware(['checkAuth'])
 
 
 
