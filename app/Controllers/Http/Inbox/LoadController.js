@@ -47,53 +47,60 @@ class LoadController {
 	async sendMessage({ request, response }){
 		try {
 			const params =  await request.all()
-			let saved = false; 
-			let saved_thread = false;
-			const newMessage = new Message();
 
 			if(!params.threadId){
-			const newThread = new Thread();
-			newThread.projectId = params.projectId
-			newThread.senderId = params.senderId
-			newThread.receiverId = params.receiverId
+				const { projectId, senderId, receiverId, message } = params;
+				const newThread = {
+					projectId, senderId, receiverId
+				}
 
-			await newThread.save()
-			//const createThread = await Thread.create(request.only(['projectId', 'senderId', 'receiverId']))
+				const created = await Thread.create(newThread)
 
-			// if (!createThread) {
-			// 	return response.status(403).json({
-			// 		data:[],
-			// 		message: 'Could not create thread',
-			// 		error:true
-			// 	})
-			// };
+				if (created) {
+					const threadId = created.id
 
-			
-			newMessage.projectId = params.projectId
-			newMessage.senderId = params.senderId
-			newMessage.threadId = newThread.id
-			newMessage.message = params.message
+					const messageObject = {
+						projectId, senderId, message, threadId
+					}
 
-			await newMessage.save()
-			saved = true;
-			}else{
-	
-			await Message.create(request.except('receiverId'))
-			saved = true
-			}
+					const sent = await Message.create(messageObject)
 
-			if (saved){
-				return response.json({
-					data: newMessage,
-					message: 'Message sent',
-					error: false
-				})
+					if (sent){
+						return response.json({
+							data: sent,
+							message: 'Thread created and message sent',
+							error: false
+						})
+					} else {
+						return response.json({
+							data: [],
+							message: 'Message couldn\'t be sent',
+							error: true
+						})
+					}
+				} else {
+					return response.json({
+						data: [],
+						message: 'Thread couldn\'t be sent',
+						error: true
+					})
+				}
 			} else {
-				return response.json({
-					data: [],
-					message: 'Message could\'nt be sent',
-					error: true
-				})
+				const sent = await Message.create(params)
+
+				if (sent) {
+					return response.json({
+						data: sent,
+						message: 'Message sent',
+						error: false
+					})
+				} else {
+					return response.json({
+						data: [],
+						message: 'Message couldn\'t be sent',
+						error: true
+					})
+				}
 			}
 		} catch (e){
 			return response.json({
