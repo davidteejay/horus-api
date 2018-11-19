@@ -8,6 +8,14 @@ class Task extends Model {
 		return	"tasksHorus"
 	}
 
+	static boot() {
+		super.boot()
+
+		this.addHook('beforeCreate', async (instance) => {
+			instance.slug = Math.random().toString(36).substring(2, 10).toUpperCase()
+		})
+	}
+
 	milestone(){
 		return this.belongsTo('App/Models/Milestone')
 	}
