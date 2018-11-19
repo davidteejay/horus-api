@@ -2368,6 +2368,7 @@ CREATE TABLE `milestonesHorus` (
   `description` varchar(200) DEFAULT NULL,
   `startDate` date NOT NULL,
   `endDate` date NOT NULL,
+  `price` int(50) NOT NULL,
   `status` enum('pending','in-progress','completed','appproved') DEFAULT 'pending',
   `feedbackDeadline` varchar(255) NOT NULL,
   `isDeleted` tinyint(1) DEFAULT '0',
@@ -2376,10 +2377,6 @@ CREATE TABLE `milestonesHorus` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO `milestonesHorus` (`id`, `slug`, `title`, `projectId`, `description`, `startDate`, `endDate`, `status`, `feedbackDeadline`, `isDeleted`, `created_at`, `updated_at`) VALUES
-(1,	'',	'Frontend',	1,	'All the tasks for the completion of the frontend design',	'2018-10-17',	'2018-10-31',	'in-progress',	'in 7 days',	1,	'2018-10-17 14:04:02',	'2018-10-17 14:23:21'),
-(2,	'',	'Frontend',	1,	'All the tasks for the completion of the frontend design',	'2018-10-17',	'2018-10-31',	'pending',	'in 7 days',	1,	'2018-10-17 14:05:21',	'2018-10-17 14:23:21'),
-(3,	'',	'Frontend',	1,	'All the tasks for the completion of the frontend design',	'2018-10-17',	'2018-10-31',	'pending',	'in 7 days',	1,	'2018-10-17 14:05:59',	'2018-10-17 14:23:21');
 
 DROP TABLE IF EXISTS `notifications`;
 CREATE TABLE `notifications` (
@@ -2765,40 +2762,42 @@ CREATE TABLE `premium_client_requests` (
   `company` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `phone` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `brief` longtext COLLATE utf8_unicode_ci NOT NULL,
+  `status` enum('pending','in-progress','completed','status') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'pending',
   `brief_upload` int(11) NOT NULL DEFAULT '0',
   `brief_file` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `active` int(11) NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
+  `isDeleted` tinyint(1) NOT NULL DEFAULT '0',
   `skypeId` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `links` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO `premium_client_requests` (`id`, `fullname`, `email`, `company`, `phone`, `brief`, `brief_upload`, `brief_file`, `active`, `created_at`, `updated_at`, `skypeId`, `links`) VALUES
-(1,	'oyinkansola subair',	'a',	'honeys\' bridal',	'08167254329',	' ',	0,	'premium_avaCZr3pe82017-09-11 11:45:13.jpg',	1,	'2017-09-11 15:45:13',	NULL,	NULL,	NULL),
-(2,	'oyinkansola subair',	'ajokzy@gmail.com',	'honeys\' bridal',	'08167254329',	' ',	0,	'',	1,	'2017-09-11 15:45:56',	'2017-09-11 15:45:56',	NULL,	NULL),
-(3,	'oyinkansola subair',	'ajokzy@gmail.com',	'honeys\'',	'8169378279',	' ',	0,	'premium_qhjmMDsQ8v2017-10-26 13:23:45.pdf',	1,	'2017-10-26 17:23:45',	NULL,	NULL,	NULL),
-(4,	'Wide Superrito',	'Wideponving1956@superrito.com',	NULL,	'+3207059767184',	'fslkfs fslf;kjsf sdlfkjsf sflkjashfs fskljhsdf klfjshdfs fslkdjfhsf skldfjsdf klfjs',	1,	'projectBrief_iXrbmiNGvh.png',	1,	'2018-05-16 16:32:17',	'2018-05-16 16:32:17',	'012434',	'https://facebook.com, https://twitter.com'),
-(5,	'Wide Superrito',	'Wideponving1956@superrito.com',	NULL,	'+3207059767184',	'fslkfs fslf;kjsf sdlfkjsf sflkjashfs fskljhsdf klfjshdfs fslkdjfhsf skldfjsdf klfjs',	1,	'projectBrief_drFaV25CmG.png',	1,	'2018-05-16 16:32:49',	'2018-05-16 16:32:49',	'012434',	'https://facebook.com, https://twitter.com'),
-(6,	'Wide Superrito',	'Wideponving1956@superrito.com',	NULL,	'+3207059767184',	'fslkfs fslf;kjsf sdlfkjsf sflkjashfs fskljhsdf klfjshdfs fslkdjfhsf skldfjsdf klfjs',	1,	'projectBrief_6V9qCCg2LQ.png',	1,	'2018-05-16 16:33:56',	'2018-05-16 16:33:56',	'012434',	'https://facebook.com, https://twitter.com'),
-(7,	'Wide Superrito',	'Wideponving1956@superrito.com',	NULL,	'+3207059767184',	'fslkfs fslf;kjsf sdlfkjsf sflkjashfs fskljhsdf klfjshdfs fslkdjfhsf skldfjsdf klfjs',	1,	'projectBrief_i64YTNogbZ.png',	1,	'2018-05-16 16:34:21',	'2018-05-16 16:34:21',	'012434',	'https://facebook.com, https://twitter.com'),
-(8,	'Wide Superrito',	'Wideponving1956@superrito.com',	NULL,	'+3207059767184',	'fslkfs fslf;kjsf sdlfkjsf sflkjashfs fskljhsdf klfjshdfs fslkdjfhsf skldfjsdf klfjs',	1,	'projectBrief_stn2C5lM6v.png',	1,	'2018-05-16 16:38:03',	'2018-05-16 16:38:03',	'012434',	'https://facebook.com, https://twitter.com'),
-(9,	'Wide Superrito',	'Wideponving1956@superrito.com',	NULL,	'+3207059767184',	'fslkfs fslf;kjsf sdlfkjsf sflkjashfs fskljhsdf klfjshdfs fslkdjfhsf skldfjsdf klfjs',	1,	'projectBrief_R8Dg6CoV6y.png',	1,	'2018-05-16 16:38:43',	'2018-05-16 16:38:43',	'012434',	'https://facebook.com, https://twitter.com'),
-(10,	'Wide Superrito',	'Wideponving1956@superrito.com',	NULL,	'+3207059767184',	'fslkfs fslf;kjsf sdlfkjsf sflkjashfs fskljhsdf klfjshdfs fslkdjfhsf skldfjsdf klfjs',	1,	'projectBrief_Ap7j8lVqed.png',	1,	'2018-05-16 16:38:54',	'2018-05-16 16:38:54',	'012434',	'https://facebook.com, https://twitter.com'),
-(11,	'Wide Superrito',	'Wideponving1956@superrito.com',	NULL,	'+3207059767184',	'fslkfs fslf;kjsf sdlfkjsf sflkjashfs fskljhsdf klfjshdfs fslkdjfhsf skldfjsdf klfjs',	1,	'projectBrief_t6WMNTeOmu.png',	1,	'2018-05-16 16:39:45',	'2018-05-16 16:39:45',	'012434',	'https://facebook.com, https://twitter.com'),
-(12,	'Wide Superrito',	'dele@findworka.com',	NULL,	'+4307059767184',	'sdfkjsf sdljhsdf sdklfjsdf sdfljksdf sdlfsdf sdflsjdfsd fslkdjfsdf slkfjbsd skljfsdf sdlkfjf skdjfbs kljfbsdf sdkfjbg sfkjbwf wekjbwe wkeljrwe qlwkjrw wlkjqn relkjbwe wekljwqbw elqjkwew rkljrew rwlkrjbwer wkjrbwr wlrjbtw lwjkbtwe tkwlejtbwet wklejtbwe tweljwe twekjthwet welkjbtw ew',	1,	'projectBrief_NA1cwmiVIn.png',	1,	'2018-05-16 16:47:31',	'2018-05-16 16:47:31',	'012434',	'https://facebook.com, https://twitter.com'),
-(13,	'Wide Superrito',	'yusuphtunday@yahoo.com',	NULL,	'07059767184',	'The codebase is largely from the TCPDF barcode generator by Nicola Asuni. This code is therefor licensed under LGPLv3. It is still a bit of a mess, bit I will clean it in the future. I do not expect the interface of this class will change during the clean ups.',	1,	'projectBrief_cBQbe2j1dT.png',	1,	'2018-05-18 15:49:20',	'2018-05-18 15:49:20',	'012434',	'https://facebook.com, https://twitter.com'),
-(14,	'Wide Superrito',	'yusuphtunday@yahoo.com',	NULL,	'07059767184',	'The codebase is largely from the TCPDF barcode generator by Nicola Asuni. This code is therefor licensed under LGPLv3. It is still a bit of a mess, bit I will clean it in the future. I do not expect the interface of this class will change during the clean ups.',	1,	'projectBrief_DnXrMJfKVW.png',	1,	'2018-05-18 16:19:48',	'2018-05-18 16:19:48',	'9876543',	NULL),
-(15,	'Babajide Ajanaku',	'tunde@findworka.com',	NULL,	'07059767184',	'his is the default web page for this server.\r\n\r\nThe web server software is running but no content has been added, yet.\r\n\r\nSo something is working.',	1,	'projectBrief_4oDejiJeU1.png',	1,	'2018-08-06 09:50:53',	'2018-08-06 09:50:53',	'yusuph_tunday',	'http://findworka.com'),
-(16,	'Babajide Ajanaku',	'info@findworka.com',	NULL,	'7059767184',	'Bacon ipsum dolor amet meatball t-bone turkey porchetta shankle pork loin bacon. Cupim capicola ham hock picanha hamburger. Pork belly spare ribs pig salami, rump swine beef. Tail pork chop turducken t-bone chicken beef bacon.',	1,	'projectBrief_hPrAI10eVz.pdf',	1,	'2018-08-07 12:56:51',	'2018-08-07 12:56:51',	'yusuph.tunday',	'http://findworka.com'),
-(17,	'Bobby Tarrantino',	'tunde@findworka.com',	NULL,	'07059767183',	'Hello world',	0,	NULL,	1,	'2018-09-05 11:46:54',	'2018-09-05 11:46:54',	'bobby.tar',	'https://findworka.com,https://facebook.com'),
-(18,	'Cracenduch Supperrito',	'Cracenduch1965@superrito.com',	NULL,	'07093538243',	'Bacon ipsum dolor amet short ribs pork belly spare ribs biltong pancetta doner flank. Biltong meatloaf boudin ball tip doner pork loin ground round fatback filet mignon prosciutto turducken jerky burgdoggen landjaeger.',	0,	NULL,	1,	'2018-09-17 05:32:28',	'2018-09-17 05:32:28',	'Cracenduch101',	'http://facebook.com'),
-(19,	'Cracenduch Supperrito',	'Cracenduch1965@superrito.com',	NULL,	'07093538243',	'Bacon ipsum dolor amet short ribs pork belly spare ribs biltong pancetta doner flank. Biltong meatloaf boudin ball tip doner pork loin ground round fatback filet mignon prosciutto turducken jerky burgdoggen landjaeger.',	0,	NULL,	1,	'2018-09-17 05:36:11',	'2018-09-17 05:36:11',	'Cracenduch101',	'http://facebook.com'),
-(20,	'Cracenduch Supperrito',	'Cracenduch1965@superrito.com',	NULL,	'07093538243',	'Bacon ipsum dolor amet short ribs pork belly spare ribs biltong pancetta doner flank. Biltong meatloaf boudin ball tip doner pork loin ground round fatback filet mignon prosciutto turducken jerky burgdoggen landjaeger.',	0,	'https://res.cloudinary.com/dy4tkpnqx/image/upload/v1537167437/horus/briefs/au2pgdhsru0oiesgbchx.pdf',	1,	'2018-09-17 06:57:18',	'2018-09-17 06:57:18',	'Cracenduch101',	'http://facebook.com'),
-(21,	'Cracenduch Supperrito',	'Cracenduch1965@superrito.com',	NULL,	'07093538243',	'Bacon ipsum dolor amet short ribs pork belly spare ribs biltong pancetta doner flank. Biltong meatloaf boudin ball tip doner pork loin ground round fatback filet mignon prosciutto turducken jerky burgdoggen landjaeger.',	0,	NULL,	1,	'2018-09-17 06:59:46',	'2018-09-17 06:59:46',	'Cracenduch101',	'http://facebook.com'),
-(22,	'Cracenduch Supperrito',	'Cracenduch1965@superrito.com',	'Cloud 97',	'07093538243',	'Bacon ipsum dolor amet short ribs pork belly spare ribs biltong pancetta doner flank. Biltong meatloaf boudin ball tip doner pork loin ground round fatback filet mignon prosciutto turducken jerky burgdoggen landjaeger.',	0,	NULL,	1,	'2018-09-17 07:09:19',	'2018-09-17 07:09:19',	'Cracenduch101',	'http://facebook.com'),
-(23,	'Cracenduch Supperrito',	'Cracenduch1965@superrito.com',	'Cloud 97',	'07093538243',	'Bacon ipsum dolor amet short ribs pork belly spare ribs biltong pancetta doner flank. Biltong meatloaf boudin ball tip doner pork loin ground round fatback filet mignon prosciutto turducken jerky burgdoggen landjaeger.',	1,	'https://res.cloudinary.com/dy4tkpnqx/image/upload/v1537168169/horus/briefs/ll5r4wkgcxc4gnvpszij.pdf',	1,	'2018-09-17 07:09:29',	'2018-09-17 07:09:29',	'Cracenduch101',	'http://facebook.com');
+INSERT INTO `premium_client_requests` (`id`, `fullname`, `email`, `company`, `phone`, `brief`, `status`, `brief_upload`, `brief_file`, `active`, `created_at`, `updated_at`, `isDeleted`, `skypeId`, `links`) VALUES
+(1,	'oyinkansola subair',	'a',	'honeys\' bridal',	'08167254329',	' ',	'pending',	0,	'premium_avaCZr3pe82017-09-11 11:45:13.jpg',	1,	'2017-09-11 15:45:13',	NULL,	0,	NULL,	NULL),
+(2,	'oyinkansola subair',	'ajokzy@gmail.com',	'honeys\' bridal',	'08167254329',	' ',	'pending',	0,	'',	1,	'2017-09-11 15:45:56',	'2017-09-11 15:45:56',	0,	NULL,	NULL),
+(3,	'oyinkansola subair',	'ajokzy@gmail.com',	'honeys\'',	'8169378279',	' ',	'pending',	0,	'premium_qhjmMDsQ8v2017-10-26 13:23:45.pdf',	1,	'2017-10-26 17:23:45',	NULL,	0,	NULL,	NULL),
+(4,	'Wide Superrito',	'Wideponving1956@superrito.com',	NULL,	'+3207059767184',	'fslkfs fslf;kjsf sdlfkjsf sflkjashfs fskljhsdf klfjshdfs fslkdjfhsf skldfjsdf klfjs',	'pending',	1,	'projectBrief_iXrbmiNGvh.png',	1,	'2018-05-16 16:32:17',	'2018-05-16 16:32:17',	0,	'012434',	'https://facebook.com, https://twitter.com'),
+(5,	'Wide Superrito',	'Wideponving1956@superrito.com',	NULL,	'+3207059767184',	'fslkfs fslf;kjsf sdlfkjsf sflkjashfs fskljhsdf klfjshdfs fslkdjfhsf skldfjsdf klfjs',	'pending',	1,	'projectBrief_drFaV25CmG.png',	1,	'2018-05-16 16:32:49',	'2018-05-16 16:32:49',	0,	'012434',	'https://facebook.com, https://twitter.com'),
+(6,	'Wide Superrito',	'Wideponving1956@superrito.com',	NULL,	'+3207059767184',	'fslkfs fslf;kjsf sdlfkjsf sflkjashfs fskljhsdf klfjshdfs fslkdjfhsf skldfjsdf klfjs',	'pending',	1,	'projectBrief_6V9qCCg2LQ.png',	1,	'2018-05-16 16:33:56',	'2018-05-16 16:33:56',	0,	'012434',	'https://facebook.com, https://twitter.com'),
+(7,	'Wide Superrito',	'Wideponving1956@superrito.com',	NULL,	'+3207059767184',	'fslkfs fslf;kjsf sdlfkjsf sflkjashfs fskljhsdf klfjshdfs fslkdjfhsf skldfjsdf klfjs',	'pending',	1,	'projectBrief_i64YTNogbZ.png',	1,	'2018-05-16 16:34:21',	'2018-05-16 16:34:21',	0,	'012434',	'https://facebook.com, https://twitter.com'),
+(8,	'Wide Superrito',	'Wideponving1956@superrito.com',	NULL,	'+3207059767184',	'fslkfs fslf;kjsf sdlfkjsf sflkjashfs fskljhsdf klfjshdfs fslkdjfhsf skldfjsdf klfjs',	'pending',	1,	'projectBrief_stn2C5lM6v.png',	1,	'2018-05-16 16:38:03',	'2018-05-16 16:38:03',	0,	'012434',	'https://facebook.com, https://twitter.com'),
+(9,	'Wide Superrito',	'Wideponving1956@superrito.com',	NULL,	'+3207059767184',	'fslkfs fslf;kjsf sdlfkjsf sflkjashfs fskljhsdf klfjshdfs fslkdjfhsf skldfjsdf klfjs',	'pending',	1,	'projectBrief_R8Dg6CoV6y.png',	1,	'2018-05-16 16:38:43',	'2018-05-16 16:38:43',	0,	'012434',	'https://facebook.com, https://twitter.com'),
+(10,	'Wide Superrito',	'Wideponving1956@superrito.com',	NULL,	'+3207059767184',	'fslkfs fslf;kjsf sdlfkjsf sflkjashfs fskljhsdf klfjshdfs fslkdjfhsf skldfjsdf klfjs',	'pending',	1,	'projectBrief_Ap7j8lVqed.png',	1,	'2018-05-16 16:38:54',	'2018-05-16 16:38:54',	0,	'012434',	'https://facebook.com, https://twitter.com'),
+(11,	'Wide Superrito',	'Wideponving1956@superrito.com',	NULL,	'+3207059767184',	'fslkfs fslf;kjsf sdlfkjsf sflkjashfs fskljhsdf klfjshdfs fslkdjfhsf skldfjsdf klfjs',	'pending',	1,	'projectBrief_t6WMNTeOmu.png',	1,	'2018-05-16 16:39:45',	'2018-05-16 16:39:45',	0,	'012434',	'https://facebook.com, https://twitter.com'),
+(12,	'Wide Superrito',	'dele@findworka.com',	NULL,	'+4307059767184',	'sdfkjsf sdljhsdf sdklfjsdf sdfljksdf sdlfsdf sdflsjdfsd fslkdjfsdf slkfjbsd skljfsdf sdlkfjf skdjfbs kljfbsdf sdkfjbg sfkjbwf wekjbwe wkeljrwe qlwkjrw wlkjqn relkjbwe wekljwqbw elqjkwew rkljrew rwlkrjbwer wkjrbwr wlrjbtw lwjkbtwe tkwlejtbwet wklejtbwe tweljwe twekjthwet welkjbtw ew',	'pending',	1,	'projectBrief_NA1cwmiVIn.png',	1,	'2018-05-16 16:47:31',	'2018-05-16 16:47:31',	0,	'012434',	'https://facebook.com, https://twitter.com'),
+(13,	'Wide Superrito',	'yusuphtunday@yahoo.com',	NULL,	'07059767184',	'The codebase is largely from the TCPDF barcode generator by Nicola Asuni. This code is therefor licensed under LGPLv3. It is still a bit of a mess, bit I will clean it in the future. I do not expect the interface of this class will change during the clean ups.',	'pending',	1,	'projectBrief_cBQbe2j1dT.png',	1,	'2018-05-18 15:49:20',	'2018-05-18 15:49:20',	0,	'012434',	'https://facebook.com, https://twitter.com'),
+(14,	'Wide Superrito',	'yusuphtunday@yahoo.com',	NULL,	'07059767184',	'The codebase is largely from the TCPDF barcode generator by Nicola Asuni. This code is therefor licensed under LGPLv3. It is still a bit of a mess, bit I will clean it in the future. I do not expect the interface of this class will change during the clean ups.',	'pending',	1,	'projectBrief_DnXrMJfKVW.png',	1,	'2018-05-18 16:19:48',	'2018-05-18 16:19:48',	0,	'9876543',	NULL),
+(15,	'Babajide Ajanaku',	'tunde@findworka.com',	NULL,	'07059767184',	'his is the default web page for this server.\r\n\r\nThe web server software is running but no content has been added, yet.\r\n\r\nSo something is working.',	'pending',	1,	'projectBrief_4oDejiJeU1.png',	1,	'2018-08-06 09:50:53',	'2018-08-06 09:50:53',	0,	'yusuph_tunday',	'http://findworka.com'),
+(16,	'Babajide Ajanaku',	'info@findworka.com',	NULL,	'7059767184',	'Bacon ipsum dolor amet meatball t-bone turkey porchetta shankle pork loin bacon. Cupim capicola ham hock picanha hamburger. Pork belly spare ribs pig salami, rump swine beef. Tail pork chop turducken t-bone chicken beef bacon.',	'pending',	1,	'projectBrief_hPrAI10eVz.pdf',	1,	'2018-08-07 12:56:51',	'2018-08-07 12:56:51',	0,	'yusuph.tunday',	'http://findworka.com'),
+(17,	'Bobby Tarrantino',	'tunde@findworka.com',	NULL,	'07059767183',	'Hello world',	'pending',	0,	NULL,	1,	'2018-09-05 11:46:54',	'2018-11-19 12:38:23',	1,	'bobby.tar',	'https://findworka.com,https://facebook.com'),
+(18,	'Cracenduch Supperrito',	'Cracenduch1965@superrito.com',	NULL,	'07093538243',	'Bacon ipsum dolor amet short ribs pork belly spare ribs biltong pancetta doner flank. Biltong meatloaf boudin ball tip doner pork loin ground round fatback filet mignon prosciutto turducken jerky burgdoggen landjaeger.',	'pending',	0,	NULL,	1,	'2018-09-17 05:32:28',	'2018-09-17 05:32:28',	0,	'Cracenduch101',	'http://facebook.com'),
+(19,	'Cracenduch Supperrito',	'Cracenduch1965@superrito.com',	NULL,	'07093538243',	'Bacon ipsum dolor amet short ribs pork belly spare ribs biltong pancetta doner flank. Biltong meatloaf boudin ball tip doner pork loin ground round fatback filet mignon prosciutto turducken jerky burgdoggen landjaeger.',	'pending',	0,	NULL,	1,	'2018-09-17 05:36:11',	'2018-09-17 05:36:11',	0,	'Cracenduch101',	'http://facebook.com'),
+(20,	'Cracenduch Supperrito',	'Cracenduch1965@superrito.com',	NULL,	'07093538243',	'Bacon ipsum dolor amet short ribs pork belly spare ribs biltong pancetta doner flank. Biltong meatloaf boudin ball tip doner pork loin ground round fatback filet mignon prosciutto turducken jerky burgdoggen landjaeger.',	'pending',	0,	'https://res.cloudinary.com/dy4tkpnqx/image/upload/v1537167437/horus/briefs/au2pgdhsru0oiesgbchx.pdf',	1,	'2018-09-17 06:57:18',	'2018-09-17 06:57:18',	0,	'Cracenduch101',	'http://facebook.com'),
+(21,	'Cracenduch Supperrito',	'Cracenduch1965@superrito.com',	NULL,	'07093538243',	'Bacon ipsum dolor amet short ribs pork belly spare ribs biltong pancetta doner flank. Biltong meatloaf boudin ball tip doner pork loin ground round fatback filet mignon prosciutto turducken jerky burgdoggen landjaeger.',	'pending',	0,	NULL,	1,	'2018-09-17 06:59:46',	'2018-09-17 06:59:46',	0,	'Cracenduch101',	'http://facebook.com'),
+(22,	'Cracenduch Supperrito',	'Cracenduch1965@superrito.com',	'Cloud 97',	'07093538243',	'Bacon ipsum dolor amet short ribs pork belly spare ribs biltong pancetta doner flank. Biltong meatloaf boudin ball tip doner pork loin ground round fatback filet mignon prosciutto turducken jerky burgdoggen landjaeger.',	'pending',	0,	NULL,	1,	'2018-09-17 07:09:19',	'2018-09-17 07:09:19',	0,	'Cracenduch101',	'http://facebook.com'),
+(23,	'Cracenduch Supperrito',	'Cracenduch1965@superrito.com',	'Cloud 97',	'07093538243',	'Bacon ipsum dolor amet short ribs pork belly spare ribs biltong pancetta doner flank. Biltong meatloaf boudin ball tip doner pork loin ground round fatback filet mignon prosciutto turducken jerky burgdoggen landjaeger.',	'pending',	1,	'https://res.cloudinary.com/dy4tkpnqx/image/upload/v1537168169/horus/briefs/ll5r4wkgcxc4gnvpszij.pdf',	1,	'2018-09-17 07:09:29',	'2018-09-17 07:09:29',	0,	'Cracenduch101',	'http://facebook.com');
 
 DROP TABLE IF EXISTS `pro`;
 CREATE TABLE `pro` (
@@ -4457,10 +4456,6 @@ CREATE TABLE `tasksHorus` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO `tasksHorus` (`id`, `slug`, `milestoneId`, `projectId`, `title`, `completed`, `isDeleted`, `created_at`, `updated_at`) VALUES
-(1,	'',	2,	1,	'HTML',	1,	1,	'2018-10-17 14:05:21',	'2018-10-17 14:29:12'),
-(2,	'',	2,	1,	'CSS',	0,	1,	'2018-10-17 14:05:21',	'2018-10-17 14:29:12'),
-(3,	'',	2,	1,	'Client side js',	0,	1,	'2018-10-17 14:05:21',	'2018-10-17 14:29:12');
 
 DROP TABLE IF EXISTS `threadsHorus`;
 CREATE TABLE `threadsHorus` (
@@ -6863,4 +6858,4 @@ INSERT INTO `withdraw_requests` (`id`, `user_id`, `account_id`, `amount`, `activ
 (16,	21,	5,	2000,	1,	'completed',	'2017-01-18 00:11:26',	'2017-02-02 19:17:37'),
 (17,	21,	5,	1000,	1,	'pending',	'2017-01-18 00:20:10',	'2017-01-18 00:20:10');
 
--- 2018-11-19 10:46:02
+-- 2018-11-19 12:54:37
